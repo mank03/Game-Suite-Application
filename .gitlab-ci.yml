@@ -1,0 +1,34 @@
+# Docker image to use
+image: gradle:7.5.1-jdk18
+
+# Define stages
+#   Stages group various steps into one block,
+#   if any step fails, the entire stage fails
+stages:
+  - lint
+  - compile
+
+  
+# Step definition
+lint:
+  # Stage the step belongs to 
+  stage: lint
+  # Scipts to run for this step
+  script:
+    - echo "Running checkstyle"
+    - gradle check
+
+  artifacts:
+    paths:
+      - build/reports/checkstyle/
+    expire_in: 1 mos
+
+  allow_failure: true
+
+compile:
+  stage: compile
+  script:
+    - echo "building"
+    - gradle build -x checkstylemain
+  allow_failure: true
+    

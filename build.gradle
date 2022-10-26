@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'game.GameUI'
+    }
+}
+
+
+//change the name of the class that is run on line 16 to match your own code
+task run;
+run.doFirst {
+    println "To run the program:\njava -jar build/libs/exampleguiproject.jar"
+}
+dependencies {
+    testImplementation('junit:junit:4.13')
+}

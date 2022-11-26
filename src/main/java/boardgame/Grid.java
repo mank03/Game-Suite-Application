@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public  class Grid{
+public class Grid{
     private int height;
     private int width;
     private ArrayList<String> data;
@@ -14,7 +14,6 @@ public  class Grid{
             setWidth(wide);
             setHeight(tall);
             emptyGrid();
-
     }
     
 

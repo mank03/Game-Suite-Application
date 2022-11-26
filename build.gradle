@@ -11,7 +11,7 @@ repositories {
 }
 jar {
     manifest {
-        attributes 'Main-Class': 'game.GameUI'
+        attributes 'Main-Class': 'boardgame.GameUI'
     }
 }
 
@@ -19,7 +19,7 @@ jar {
 //change the name of the class that is run on line 16 to match your own code
 task run;
 run.doFirst {
-    println "To run the program:\njava -jar build/libs/exampleguiproject.jar"
+    println "To run the program:\njava -jar build/libs/A3example.jar"
 }
 dependencies {
     testImplementation('junit:junit:4.13')

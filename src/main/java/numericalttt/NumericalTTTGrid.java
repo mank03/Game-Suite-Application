@@ -7,17 +7,30 @@ private String line = null;
 private Character cellWall = '|';
 private static int cellWidth = 4;
 
+
+/*
+ * This is the constructor for the NumericalTTTGrid class.
+ */
 public NumericalTTTGrid(int wide, int tall){
         super(wide,tall);
         makeGridLine();
 }
 
+/**
+ * This function creates a string of dashes that is the same length as the width of the grid
+ */
 private void makeGridLine(){
     line = "";
     for(int j=0; j<getWidth()*cellWidth; j++){
         line +="-";
         }
 }
+
+/**
+ * This function creates a string representation of the grid
+ * 
+ * @return A string representation of the grid.
+ */
 @Override
 public String getStringGrid(){
 
@@ -52,12 +65,12 @@ public String toString(){
 }
 
 /**
- * this is a no-op method right now that is just a
- * placeholder for something that could be useful in 
- * saving/loading games
- * **/
-
-
+ * This function takes a string, splits it into an array, and then assigns the values to the board
+ * array
+ * 
+ * @param toParse The string to parse into the board.
+ * @return Weather odd is true or false
+ */
 public boolean parseStringIntoBoard(String toParse){
     try{
         String[] parts = toParse.split(",|\\\n");
@@ -88,6 +101,13 @@ public boolean parseStringIntoBoard(String toParse){
     return false;
 }
 
+/**
+ * It takes the position of the player's move and the player's name and sets the value of the array to
+ * the player's name
+ * 
+ * @param i the position of the button that was clicked
+ * @param player The player who is making the move
+ */
 private void positionToArray(int i, String player){
     if(i == 0 || i == 1 || i == 2){
         setValue(i+1,1,player);

@@ -13,18 +13,27 @@ private int across;
 private int down;
 private int again;
 
+/*
+ * This is the constructor for the TextUI class. It creates a new TicTacToeGame object and sets the
+ * grid to a new grid.
+ */
 public TextUI(){
     game = new TicTacToeGame(3,3);
-    game.setGrid(TicTacToeGame.newGrid(1,3,3));
 }
 
 
+/**
+ * This is the main method that calls the startGame() method to begin playing
+ */
 public static void main(String[] args) {
     TextUI game = new TextUI();
     game.startGame();
 }
 
     
+/**
+ * The function starts a new game, then loops through the game until the game is over
+ */
 public void startGame(){
     game.newGame();
     boolean loop = true;
@@ -38,12 +47,6 @@ public void startGame(){
                 for(int j = 1; j < 4; j++){
                     String q = game.getCell(i,j);
                     System.out.print("|" + q + " ");
-                    // if(j == 1){
-                    //     System.out.print("|\n");
-                    // }
-                    // if(j == 2){
-                    //     System.out.print("|\n");
-                    // }
                 }
                 System.out.print("|\n");
             }
@@ -55,6 +58,10 @@ public void startGame(){
 }
 }
 
+/**
+ * If the game is done, print the game state message and ask the user if they want to play again.
+ * @return The boolean value of loop.
+ */
 private boolean checkDone(){
     boolean loop = false;
     if(game.isDone()){
@@ -76,6 +83,11 @@ private boolean checkDone(){
 }
 
 
+/**
+ * If the game is a draw, return true. Otherwise, return false
+ * 
+ * @return The method is returning a boolean value.
+ */
 private boolean checkDraw() {
     if(game.checkDraw()){
         return true;
@@ -83,6 +95,13 @@ private boolean checkDraw() {
     return false;
 }
 
+/**
+ * This function checks the board to see if the cell already contains X or O
+ * 
+ * @param wide the width of the board
+ * @param high the height of the board
+ * @return True if cell contains X or O, false otherwise.
+ */
 public boolean checkBoard(int wide, int high) {
     if (game.getCell(wide,high) == "X" || game.getCell(wide,high) == "O") {
         return true;
@@ -90,21 +109,22 @@ public boolean checkBoard(int wide, int high) {
     return false;
 }
 
-//Method checks invalid inputs
+/**
+ * This function checks the position of the player's move and returns true if the position is invalid
+ * 
+ * @return The method is returning a boolean value.
+ */
 private boolean checkPosition(){
-//using try and catch statement to find input mismatch
 try{
     System.out.print("\nEnter Position across: ");
     across = input.nextInt();
     System.out.print("\nEnter Position down: ");
     down = input.nextInt();
 
-    //checks if input is out of range
     if(across > 3 || across < 1 || down > 3 || down < 1){
     System.out.println("Error - Please enter value in range");
     return true;
     }
-    //checks if another turn has already been placed on board
     if(checkBoard(across, down)){
     System.out.println("Illegal Move! Try Again");
     return true;
@@ -114,8 +134,13 @@ try{
     input.nextLine();
     return true;
 }
-//counts the turn and returns false 
 return false;
 }
 
 }
+/**
+ * The function takes in a string, parses it into a 2D array, and then sets the turn to the player
+ * who's turn it is
+ * 
+ * @param saved The string that was saved in the saveString() method.
+ */

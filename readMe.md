@@ -28,7 +28,7 @@ gradle run
 * The terminal shoud ouptut the run task of the program which looks like this:
 ```
 To run the program:
-java -jar build/libs/A3example.jar
+java -jar build/libs/A3.jar
 ```
 * Now copy and paste that jar command into a separate local terminal and you are ready to play!
 
@@ -56,7 +56,7 @@ gradle run
 * The terminal shoud ouptut the run task of the program which looks like this:
 ```
 To run the program:
-java -jar build/libs/A3example.jar
+java -jar build/libs/A3.jar
 ```
 * Now copy and paste that jar command into the terimal and you are ready to play!
 

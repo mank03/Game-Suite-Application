@@ -44,6 +44,10 @@ private static JButton b;
 private JPanel stat = new JPanel(new GridBagLayout());
 private GridBagConstraints gbc = new GridBagConstraints();
 
+/*
+ * This is the constructor of the class. Here two labels are being added to the panel 
+ * as well as a go back button
+ */
 public ShowScores(GameUI gameFrame) {
     JPanel p = new JPanel();
     b = new JButton("select");
@@ -75,6 +79,11 @@ public ShowScores(GameUI gameFrame) {
 }
 
 
+/**
+ * It creates a button that, when clicked, will return the user to the start screen
+ * 
+ * @return Go Back JButton object
+ */
 private JButton makeGoBackButton(){
     JButton back = new JButton("Go Back");
     back.addActionListener(e->root.start());
@@ -82,6 +91,13 @@ private JButton makeGoBackButton(){
     return back;
 }
 
+/**
+ * This method is called when the select button is clicked. It opens a file choose
+ * and loads the file into a Player object
+ * 
+ * @param e the ActionEvent that is triggered when the button is clicked
+ * @return The method is returning the player string
+ */
 public String buttonClicked(ActionEvent e){
     String s = e.getActionCommand();
     String player = "";
@@ -110,6 +126,13 @@ public String buttonClicked(ActionEvent e){
 }
 
 
+/**
+ * This function checks if the player profile exists and returns a string with the player's name, wins,
+ * losses, and games played
+ * 
+ * @param exists boolean value that determines if the player profile exists
+ * @return The method is returning the profile string
+ */
 private String checkExists(boolean exists){
     String profile = "";
     if(!exists){

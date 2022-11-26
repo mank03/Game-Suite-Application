@@ -104,8 +104,12 @@ public void askLoadProfile(){
 }
 
 
-/** 
- * @return JPanel
+
+/**
+ * It creates a new JPanel, sets its layout to BoxLayout, sets its alignment to center, adds the new
+ * game button and the go back button to it, and returns the panel
+ * 
+ * @return buttonPanel
  */
 private JPanel makeButtonPanel() {
     JPanel buttonPanel = new JPanel();
@@ -117,8 +121,11 @@ private JPanel makeButtonPanel() {
 }
 
 
-/** 
- * @return JButton
+
+/**
+ * makeNewGameButton() creates a button that resets the game when clicked
+ * 
+ * @return the reset button.
  */
 private JButton makeNewGameButton(){
     JButton button = new JButton("Reset");
@@ -131,8 +138,11 @@ private JButton makeNewGameButton(){
 }
 
 
-/** 
- * @return JButton
+
+/**
+ * It creates a button that, when clicked, will return the user to the start screen
+ * 
+ * @return the go back button.
  */
 private JButton makeGoBackButton(){
     JButton back = new JButton("Go Back");
@@ -142,18 +152,24 @@ private JButton makeGoBackButton(){
 }
 
 
-/** 
- * @param controller
+
+/**
+ * This method sets the game controller
+ * 
+ * @param controller The controller object that will be used to control the game.
  */
 public void setGameController(TicTacToeGame controller){
     this.game = controller;
 }
 
 
-/** 
- * @param tall
- * @param wide
- * @return JPanel
+
+/**
+ * It creates a 2D array of buttons, and adds them to a panel
+ * 
+ * @param tall the number of rows in the grid
+ * @param wide the number of columns in the grid
+ * @return A JPanel with a grid layout of buttons.
  */
 public JPanel initializeButtons(int tall, int wide){
     JPanel panel = new JPanel();
@@ -176,23 +192,26 @@ public JPanel initializeButtons(int tall, int wide){
 
 
 /** 
- * @param e
+ * When the grid button is clicked, it takes the turns and disables the cell
+ * @param e the ActionEvent
  */
 private void buttonClick(ActionEvent e){
-//send input to game and update view
     PositionAwareButton clicked = ((PositionAwareButton)(e.getSource()));
     clicked.setFont(new Font("Monospaced", Font.PLAIN, 26));
     clicked.setEnabled(false);
     if(game.takeTurn(clicked.getAcross(), clicked.getDown(),playerMark)){
-    clicked.setText(game.getCell(clicked.getAcross(),clicked.getDown()));
-}
+        clicked.setText(game.getCell(clicked.getAcross(),clicked.getDown()));
+    }
 
-playerMark = game.setTurn(playerMark);
+    playerMark = game.setTurn(playerMark);
     turnLabel.setText("TURN: " + playerMark);
     add(turnLabel, BorderLayout.WEST);  
     displayVictor();
 }
 
+/**
+ * Set the values of player profile and output game over message
+ */
 private void gameOverMessage(){
     String name;
     if(playerMark == "X") {
@@ -217,6 +236,9 @@ private void gameOverMessage(){
     } 
 }
 
+/**
+ * Saves profiles of both players
+ */
 private void saveProfile(){
     JFileChooser chooser = new JFileChooser();
     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -246,6 +268,10 @@ private void saveProfile(){
     }
 }
 
+/**
+ * It creates a new JOptionPane, asks the user if they want to play again, and if they do, it creates a
+ * new game
+ */
 private void playAgainMessage(){
     JOptionPane pane = new JOptionPane();
     int dialogResult = JOptionPane.showConfirmDialog(pane, 
@@ -261,6 +287,11 @@ private void playAgainMessage(){
     }
 }
 
+/**
+ * This function creates a dialog box that asks the user if they would like to save their profile. If
+ * they say yes, the saveProfile() function is called and the playAgainMessage() function is called. If
+ * they say no, the game restarts and the menu bar is hidden
+ */
 private void drawMessage(){
     JOptionPane pane = new JOptionPane();
     int dialogResult = JOptionPane.showConfirmDialog(pane, 
@@ -276,6 +307,10 @@ private void drawMessage(){
     }
 }
 
+/**
+ * If the game is over, display the game over message and the play again message. If the game is a
+ * draw, display the draw message
+ */
 public void displayVictor() {
     if(game.isDone()) {
         gameOverMessage();
@@ -285,6 +320,9 @@ public void displayVictor() {
     }
 }
 
+/**
+ * This function resets the game board and the game model, and updates the view
+ */
 protected void newGame(){
     turnLabel.setText("TURN: " + "X");
     add(turnLabel, BorderLayout.WEST);  // Messages go on top  
@@ -299,6 +337,10 @@ protected void newGame(){
     playerO.setGamesPlayed(1);
 }
 
+/**
+ * This function updates the view by setting the text of each button to the corresponding cell in the
+ * game
+ */
 protected void updateView(){
     for (int y=0; y<game.getHeight(); y++){
         for (int x=0; x<game.getWidth(); x++){  
@@ -313,6 +355,9 @@ protected void updateView(){
     }
 }
 
+/**
+ * This function creates a menu bar with two menu items, one to save the board and one to load a board
+ */
 public void makeMenu(){
     menuBar = new JMenuBar();
     JMenu menu = new JMenu("Menu");
@@ -338,9 +383,9 @@ public void makeMenu(){
 }
 
 
-
-/** 
- * @throws FileNotFoundException
+/**
+ * Saves the board to a file location chosen by the user
+ * @throws FileNotFoundException if the file does not exist
  */
 protected void saveSomething() throws FileNotFoundException{
     JFileChooser chooser = new JFileChooser();
@@ -358,8 +403,10 @@ protected void saveSomething() throws FileNotFoundException{
 }
 
 
-/** 
- * @throws FileNotFoundException
+
+/**
+ * The function loads a board from a file and updates the view
+ * @throws FileNotFoundException if the file does not exist
  */
 protected void loadBoard() throws FileNotFoundException{
     JFileChooser chooser = new JFileChooser();

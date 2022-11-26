@@ -52,31 +52,37 @@ private Player playerO = new Player();
 
 
 public NumericalTTTView(int wide, int tall, GameUI gameFrame) {
-super();
-setLayout(new BorderLayout());
-root = gameFrame;
-setGameController(new NumericalTTTGame(wide,tall));   
-initializeButtons(wide,tall);
+    super();
+    setLayout(new BorderLayout());
+    root = gameFrame;
+    setGameController(new NumericalTTTGame(wide,tall));   
+    initializeButtons(wide,tall);
 
-messageLabel = new JLabel("Welcome to Numerical TicTacToe", SwingConstants.CENTER);
-messageLabel.setFont(new Font("Monospaced", Font.BOLD, 26));      
+    messageLabel = new JLabel("Welcome to Numerical TicTacToe", SwingConstants.CENTER);
+    messageLabel.setFont(new Font("Monospaced", Font.BOLD, 26));      
 
-add(messageLabel, BorderLayout.NORTH);     
-game.newGame();
-add(initializeButtons(tall,wide), BorderLayout.CENTER);
-add(makeButtonPanel(),BorderLayout.SOUTH);
+    add(messageLabel, BorderLayout.NORTH);     
+    game.newGame();
+    add(initializeButtons(tall,wide), BorderLayout.CENTER);
+    add(makeButtonPanel(),BorderLayout.SOUTH);
 
-makeMenu();
-gameFrame.setJMenuBar(menuBar); 
-playerName();
+    makeMenu();
+    gameFrame.setJMenuBar(menuBar); 
+    playerName();
 
-player = getPlayer(odd);
+    player = getPlayer(odd);
 
-turnLabel = new JLabel("TURN: " + player, SwingConstants.CENTER);
-turnLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
-add(turnLabel, BorderLayout.WEST);  // Messages go on top 
+    turnLabel = new JLabel("TURN: " + player, SwingConstants.CENTER);
+    turnLabel.setFont(new Font("Monospaced", Font.BOLD, 14));
+    add(turnLabel, BorderLayout.WEST); 
 }
 
+/**
+ * If the turn is true, then the player is odd, otherwise the player is even
+ * 
+ * @param turn boolean value that determines if it's the odd or even player's turn
+ * @return The player's turn.
+ */
 private String getPlayer(boolean turn){
     if(turn) {
         player = "odd";
@@ -86,6 +92,10 @@ private String getPlayer(boolean turn){
     return player;
 }
 
+/**
+ * This method asks the user to input a name for the player, and then sets the name of the player to
+ * the inputted name
+ */
 public void playerName(){
     String p1 = JOptionPane.showInputDialog(null, "Please input a player EVEN name: ", 
                                             JOptionPane.YES_NO_CANCEL_OPTION);
@@ -98,6 +108,10 @@ public void playerName(){
     askLoadProfile();
 }
 
+/**
+ * It asks the user if they want to load any existing player profiles, and if they say yes, it opens a
+ * file chooser and loads the profiles
+ */
 public void askLoadProfile(){
     JOptionPane pane = new JOptionPane();
     int askLoad = JOptionPane.showConfirmDialog(pane, 
@@ -128,6 +142,13 @@ public void askLoadProfile(){
     }
 }
 
+/**
+ * It creates a new JPanel with two buttons, adds the new
+ * game button and the go back button to it, and returns the panel
+ * 
+ * @return A JPanel with two buttons, one for starting a new game and one for going back to the main
+ * menu.
+ */
 private JPanel makeButtonPanel() {
     JPanel buttonPanel = new JPanel();
     buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
@@ -137,6 +158,11 @@ private JPanel makeButtonPanel() {
     return buttonPanel;
 }
 
+/**
+ * MakeNewGameButton() returns a JButton that, when clicked, calls newGame().
+ * 
+ * @return The reset button.
+ */
 private JButton makeNewGameButton(){
     JButton button = new JButton("Reset");
     button.addActionListener(e->newGame());
@@ -144,6 +170,11 @@ private JButton makeNewGameButton(){
     return button;
 }
 
+/**
+ * It creates a button that, when clicked, will return the user to the start screen
+ * 
+ * @return The go back button
+ */
 private JButton makeGoBackButton(){
     JButton back = new JButton("Go Back");
     back.addActionListener(e->root.start());
@@ -151,13 +182,23 @@ private JButton makeGoBackButton(){
     return back;
 }
 
+/**
+ * This function sets the game controller
+ * 
+ * @param controller The controller object that will be used to control the game.
+ */
 public void setGameController(NumericalTTTGame controller){
     this.game = controller;
 }
 
-// a method used to create 9 buttons
-// set the text, add action listeners
-// and add them to the screen
+
+/**
+ * It creates a 2D array of buttons, and adds them to a panel
+ * 
+ * @param tall the number of rows in the grid
+ * @param wide the number of columns in the grid
+ * @return A JPanel with a grid layout of buttons.
+ */
 public JPanel initializeButtons(int tall, int wide){
     JPanel panel = new JPanel();
     buttons = new PositionAwareButton[tall][wide];
@@ -176,6 +217,12 @@ public JPanel initializeButtons(int tall, int wide){
     return panel;
 }
 
+/**
+ * This method updates the player profiles
+ * 
+ * @param turn boolean value that determines which player won the game
+ * @return The name of the player who won the game.
+ */
 private String updatePlayerProfile(boolean turn){
     String name;
     if(turn) {
@@ -192,6 +239,9 @@ private String updatePlayerProfile(boolean turn){
     return name;
 }
 
+/**
+ * It asks the user if they want to save the player profiles after the game is over
+ */
 private void gameOverMessage(){
     JOptionPane pane = new JOptionPane();
     int askSave = JOptionPane.showConfirmDialog(pane, 
@@ -204,6 +254,9 @@ private void gameOverMessage(){
     } 
 }
 
+/**
+ * This method when called saves the profiles of both players
+ */
 private void saveProfile(){
     JFileChooser chooser = new JFileChooser();
     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -234,6 +287,9 @@ private void saveProfile(){
     }
 }
 
+/**
+ * This method asks the user if they would like to play again
+ */
 private void playAgainMessage(){
     JOptionPane pane = new JOptionPane();
     int dialogResult = JOptionPane.showConfirmDialog(pane, 
@@ -248,6 +304,9 @@ private void playAgainMessage(){
     }
 }
 
+/**
+ * This method display the draw message and asks the user if they would like to play again
+ */
 private void drawMessage(){
     JOptionPane pane = new JOptionPane();
     int dialogResult = JOptionPane.showConfirmDialog(pane, 
@@ -264,11 +323,12 @@ private void drawMessage(){
     } 
 }
 
-// display the victorious player
+/**
+ * If the game is over, display the winner, otherwise display a draw message
+ */
 public void displayVictor() {
     if(game.isDone()) {
         player = getPlayer(odd);
-        // updatePlayerProfile(odd);
         gameOverMessage();
         playAgainMessage();
     } else if(checkDraw()) {
@@ -276,6 +336,9 @@ public void displayVictor() {
     }
 }
 
+/**
+ * This function resets the game board and the game model
+ */
 protected void newGame(){
     odd = true;
     turnLabel.setText("TURN: " + "odd");
@@ -289,8 +352,10 @@ protected void newGame(){
     updateView();
 }
 
+/**
+ * This function updates the labels on the buttons according to the model
+ */
 protected void updateView(){
-    //update the labels on the buttons according to the model
     for (int y=0; y<game.getHeight(); y++){
         for (int x=0; x<game.getWidth(); x++){  
             buttons[y][x].setText(game.getCell(buttons[y][x].getAcross(),buttons[y][x].getDown())); 
@@ -303,7 +368,11 @@ protected void updateView(){
     }
 }
 
-// checks for draw
+/**
+ * If the board is full, then the game is a draw
+ * 
+ * @return true if board is full, false otherwise.
+ */
 public boolean checkDraw() {
     boolean full = true;
     for (int y=0; y<game.getHeight(); y++){
@@ -316,6 +385,13 @@ public boolean checkDraw() {
     return full;
 }
 
+/**
+ * It checks if the number exists in the game
+ * 
+ * @param num The number that is being checked to see if it exists in the game.
+ * @param numberExists This is a boolean that is used to check if the number exists in the game.
+ * @return True if the number exists, false otherwise.
+ */
 private boolean checkExists(int num, boolean numberExists) {
     for(int i = 1; i < 4; i++){
         for(int j = 1; j < 4; j++){
@@ -327,6 +403,9 @@ private boolean checkExists(int num, boolean numberExists) {
     return numberExists;
 }
 
+/**
+ * This function updates the turn label to display the current player's turn
+ */
 private void updateButton(){
     odd = game.setTurn(odd);
     player = getPlayer(odd);
@@ -336,6 +415,11 @@ private void updateButton(){
     displayVictor();
 }
 
+/**
+ * The function takes in an ActionEvent and prompts the user to enter a number and validates the number
+ * 
+ * @param e the event that was triggered
+ */
 private void enterNumber(ActionEvent e){
     int num = 0;
     player = getPlayer(odd);
@@ -367,11 +451,19 @@ private void enterNumber(ActionEvent e){
     }   
 }
 
-// checks for a winner
+/**
+ * If the game is over, return true
+ * 
+ * @return A boolean value.
+ */
 public boolean checkForWinner() {
     return game.winnerHorizontal(odd) || game.winnerVertical(odd) || game.winnerDiagonal(odd);
 }
     
+/**
+ * It creates a menu bar with a menu that has two menu items, one that saves the board and one that
+ * loads a board
+ */
 public void makeMenu(){
     menuBar = new JMenuBar();
     JMenu menu = new JMenu("Menu");
@@ -394,9 +486,11 @@ public void makeMenu(){
             e1.printStackTrace();
         }
     });
-
 }
 
+/**
+ * This method saves the board to a file location chosen by the user
+ */
 protected void saveSomething() throws FileNotFoundException{
     JFileChooser chooser = new JFileChooser();
     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -412,6 +506,9 @@ protected void saveSomething() throws FileNotFoundException{
     }
 }
 
+/**
+ * This method loads a board from a file location chosen by the user
+ */
 protected void loadBoard() throws FileNotFoundException{
     JFileChooser chooser = new JFileChooser();
     chooser.setDialogTitle("Load the Board");

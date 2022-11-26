@@ -71,14 +71,13 @@ public String toString(){
  * @param toParse The string to parse into the board.
  * @return Weather odd is true or false
  */
-public boolean parseStringIntoBoard(String toParse){
+public String parseStringIntoBoard(String toParse){
+    String odd = "";
     try{
         String[] parts = toParse.split(",|\\\n");
-        int p = parts.length;
-        int p1Count = 0;
+        int p1Count = 0; 
         int p2Count = 0;
-        boolean odd = true;
-            for(int i = 0; i < p; i++){
+            for(int i = 0; i < parts.length; i++){
             if(parts[i] == ""){
                 positionToArray(i, "");
             } else if(Integer.parseInt(parts[i]) % 2 != 0){
@@ -87,18 +86,20 @@ public boolean parseStringIntoBoard(String toParse){
             } else if(Integer.parseInt(parts[i]) % 2 == 0){
                 p2Count++;
                 positionToArray(i, parts[i]);
-            } 
+            } else{
+                odd = "error";
+                return odd;
+            }
         }
         if(p1Count == p2Count){
-            odd = true;
+            odd = "true";
         } else if (p1Count > p2Count){
-            odd = false;
+            odd = "false";
         }
-        return odd;
     } catch (NumberFormatException e){
-        e.printStackTrace();
+        odd = "error";
     }
-    return false;
+    return odd;
 }
 
 /**

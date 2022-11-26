@@ -25,7 +25,6 @@ public static void save(Saveable testPack, String filename, String relativePath)
     try{
         Files.writeString(path, testPack.getStringToSave());
     } catch(IOException e){
-        // System.out.println(e.getMessage());
     }
 }
 
@@ -49,7 +48,6 @@ public static boolean load(Saveable toSave, String filename, String relativePath
             return exists;
         }
         String fileLines = String.join("\n", Files.readAllLines(path));
-        System.out.println("filelines = " + fileLines);
         toSave.loadSavedString(fileLines);
         return exists;
     } catch(IOException e){

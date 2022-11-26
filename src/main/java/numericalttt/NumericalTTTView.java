@@ -228,13 +228,13 @@ private String updatePlayerProfile(boolean turn){
     if(turn) {
         player = "Even";
         name = playerX.getName();
-        playerX.setLoss(1);
-        playerO.setWins(1);
+        playerO.setLoss(1);
+        playerX.setWins(1);
     } else {
         player = "Odd";
         name = playerO.getName();
-        playerX.setWins(1);
-        playerO.setLoss(1);
+        playerO.setWins(1);
+        playerX.setLoss(1);
     }
     return name;
 }
@@ -268,7 +268,6 @@ private void saveProfile(){
     int returnVal = chooser.showSaveDialog(this);
     if(returnVal == JFileChooser.APPROVE_OPTION){
         game.getStringToSave();
-        System.out.println(chooser.getSelectedFile().getAbsolutePath());
         SaveToFile.save(playerX, "", chooser.getSelectedFile().getAbsolutePath());
     }
 
@@ -281,7 +280,6 @@ private void saveProfile(){
     int returnValue = chooser.showSaveDialog(this);
     if(returnValue == JFileChooser.APPROVE_OPTION){
         game.getStringToSave();
-        System.out.println(chooser.getSelectedFile().getAbsolutePath());
         SaveToFile.save(playerO, "", chooser.getSelectedFile().getAbsolutePath());
 
     }
@@ -297,6 +295,8 @@ private void playAgainMessage(){
                         "Game over.", 
                         JOptionPane.YES_NO_OPTION);
     if(dialogResult == JOptionPane.YES_OPTION) {
+        playerX.setGamesPlayed(1);
+        playerO.setGamesPlayed(1);
         newGame();
     } else{
         root.start();
@@ -318,8 +318,7 @@ private void drawMessage(){
         playAgainMessage();
         // newGame();
     } else{
-        root.start();
-        menuBar.setVisible(false);
+        playAgainMessage();
     } 
 }
 
@@ -516,8 +515,10 @@ protected void loadBoard() throws FileNotFoundException{
     int returnVal = chooser.showOpenDialog(this);
     if(returnVal == JFileChooser.APPROVE_OPTION){
         game.getStringToSave();
+   
         SaveToFile.load(game, "", chooser.getSelectedFile().getAbsolutePath());
         updateView();
+        loadError();
 
         odd = game.loadedBoardPlayer();
         player = getPlayer(odd);
@@ -526,4 +527,19 @@ protected void loadBoard() throws FileNotFoundException{
         add(turnLabel, BorderLayout.WEST);  // Messages go on top  
     }
 }
+
+
+private void loadError(){
+    boolean setToFalse = false;
+    if(game.getloadedPlayerError()){
+        JOptionPane errorPane = new JOptionPane();
+            JOptionPane.showConfirmDialog(errorPane, "Hmmm. " 
+            + "There seems to be something wrong with the file. " 
+            + "Please exit and try again.",
+            "Invalid File.", 
+            JOptionPane.OK_CANCEL_OPTION);
+        setToFalse = game.getloadedPlayerError();
+    }
 }
+}
+

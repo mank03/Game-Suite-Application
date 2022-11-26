@@ -4,6 +4,7 @@ package numericalttt;
 public class NumericalTTTGame extends boardgame.BoardGame implements boardgame.Saveable{
 
 private boolean odd = true;
+private boolean loadedPlayerError = false;
             
 
 /*
@@ -209,9 +210,35 @@ public String getStringToSave(){
  */
 @Override
 public void loadSavedString(String saved){
+    String loadedStringTurn = "";
     NumericalTTTGrid myGrid = (NumericalTTTGrid)getGrid();  
-    odd = myGrid.parseStringIntoBoard(saved);
+    loadedStringTurn = myGrid.parseStringIntoBoard(saved);
+    if(loadedStringTurn == "true"){
+        odd = true;
+    } else if(loadedStringTurn == "false"){
+        odd = false;
+    } else{
+        loadedPlayerError = true;
+    }
     loadedBoardPlayer();
+}
+
+/**
+ * This is a getter if there is an error in the loaded board
+ * 
+ * @return The boolean value of odd.
+ */
+protected boolean getloadedPlayerError(){
+    return loadedPlayerError;
+}
+
+/**
+ * This is a setter if there is an error in the loaded board
+ * 
+ * @return The boolean value of odd.
+ */
+protected void setLoadedPlayerError(boolean error){
+    loadedPlayerError = error;
 }
 
 /**

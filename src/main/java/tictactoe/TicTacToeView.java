@@ -80,12 +80,12 @@ public void askLoadProfile(){
     JOptionPane.YES_NO_OPTION);
     if(askLoad == JOptionPane.YES_OPTION){
         JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Load Player Profile");
+        chooser.setDialogTitle("Load " + playerX.getName() + " Profile");
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION){
             try{
                 SaveToFile.load(playerX, "", chooser.getSelectedFile().getAbsolutePath());
-                chooser.setDialogTitle("Load Player Profile");
+                chooser.setDialogTitle("Load " + playerO.getName() + " Profile");
                 int returnValue = chooser.showOpenDialog(this);
                 if(returnValue == JFileChooser.APPROVE_OPTION){
                     SaveToFile.load(playerO, "", 
@@ -245,25 +245,23 @@ private void saveProfile(){
     chooser.setDialogTitle("Save " + playerX.getName() + " Profile");
     chooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV File", ".csv"));
     chooser.setAcceptAllFileFilterUsed(true);
-    chooser.setSelectedFile(new File("Xprofile.csv"));
+    chooser.setSelectedFile(new File(playerX.getName() + "Profile.csv"));
 
     int returnVal = chooser.showSaveDialog(this);
     if(returnVal == JFileChooser.APPROVE_OPTION){
         game.getStringToSave();
-        System.out.println(chooser.getSelectedFile().getAbsolutePath());
         SaveToFile.save(playerX, "", chooser.getSelectedFile().getAbsolutePath());
     }
 
     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    chooser.setDialogTitle("Save " + playerO.getName() + "Profile");
+    chooser.setDialogTitle("Save " + playerO.getName() + " Profile");
     chooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV File", ".csv"));
     chooser.setAcceptAllFileFilterUsed(true);
-    chooser.setSelectedFile(new File("Oprofile.csv"));
+    chooser.setSelectedFile(new File(playerO.getName() + "Profile.csv"));
 
     int returnValue = chooser.showSaveDialog(this);
     if(returnValue == JFileChooser.APPROVE_OPTION){
         game.getStringToSave();
-        System.out.println(chooser.getSelectedFile().getAbsolutePath());
         SaveToFile.save(playerO, "", chooser.getSelectedFile().getAbsolutePath());
     }
 }
@@ -279,6 +277,8 @@ private void playAgainMessage(){
     "Game over.", 
     JOptionPane.YES_NO_OPTION);
     if(dialogResult == JOptionPane.YES_OPTION) {
+        playerX.setGamesPlayed(1);
+        playerO.setGamesPlayed(1);
         newGame();
         playerMark = "X";
     } else{
@@ -302,8 +302,7 @@ private void drawMessage(){
         saveProfile();
         playAgainMessage();
     } else{
-        root.start();
-        menuBar.setVisible(false);
+        playAgainMessage();
     }
 }
 
@@ -333,8 +332,7 @@ protected void newGame(){
     }
     game.newGame();
     updateView();
-    playerX.setGamesPlayed(1);
-    playerO.setGamesPlayed(1);
+
 }
 
 /**

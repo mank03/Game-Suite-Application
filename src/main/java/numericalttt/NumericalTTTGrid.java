@@ -77,7 +77,7 @@ public String parseStringIntoBoard(String toParse){
         String[] parts = toParse.split(",|\\\n");
         int p1Count = 0; 
         int p2Count = 0;
-            for(int i = 0; i < parts.length; i++){
+            for(int i = 1; i < parts.length; i++){
             if(parts[i] == ""){
                 positionToArray(i, "");
             } else if(Integer.parseInt(parts[i]) % 2 != 0){
@@ -110,19 +110,24 @@ public String parseStringIntoBoard(String toParse){
  * @param player The player who is making the move
  */
 private void positionToArray(int i, String player){
-    if(i == 0 || i == 1 || i == 2){
-        setValue(i+1,1,player);
-    } else if(i == 3) {
-        setValue(1,2,player);
+
+    if(i == 1){
+        setValue(1,1,player);
+    } else if(i == 2){
+        setValue(2,1,player);
+    } else if(i == 3){
+        setValue(3,1,player);
     } else if(i == 4){
-        setValue(2,2, player);
+        setValue(1,2, player);
     } else if(i == 5){
-        setValue(3,2, player);
+        setValue(2,2, player);
     } else if(i == 6){
-        setValue(1,3, player);
+        setValue(3,2, player);
     } else if(i == 7){
-        setValue(2,3, player);
+        setValue(1,3, player);
     } else if(i == 8){
+        setValue(2,3, player);
+    } else if(i == 9){
         setValue(3,3, player);
     }
 }

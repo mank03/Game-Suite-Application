@@ -185,6 +185,8 @@ public String getGameStateMessage(){
 @Override
 public String getStringToSave(){
     String stringToSave = "";
+    stringToSave += turn;
+    stringToSave += "\n";
 
     for(int i = 1; i < getHeight()+1; i++){
         for(int j = 1; j < getWidth()+1; j++){

@@ -186,6 +186,12 @@ public String getGameStateMessage(){
 @Override
 public String getStringToSave(){
     String stringToSave = "";
+    if(odd){
+        stringToSave += "O"; 
+    } else{
+        stringToSave += "E";
+    }
+    stringToSave += "\n";
     for(int i = 1; i < 4; i++){
         for(int j = 1; j < 4; j++){
             if(getCell(j,i) == "100" || getCell(j,i) == null){

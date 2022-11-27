@@ -42,7 +42,7 @@ attributes 'Main-Class': 'boardgame.GameUI'
 to
 
 ```
-attributes 'Main-Class': 'boardgame.TextUI'
+attributes 'Main-Class': 'game.TextUI'
 ```
 
 * To build the program using Gradle, in your terminal head to the directory that contains the project files. Ensure that the build.gradle file is included in this directory. In the command line type:
